@@ -2,7 +2,8 @@ import logging
 import os
 from pytube import YouTube
 from flask import Flask, request, send_file
- 
+
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 app = Flask(__name__)
  
 @app.route("/")
