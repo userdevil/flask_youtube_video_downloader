@@ -10,15 +10,24 @@ app = Flask(__name__)
 @app.route("/")
 def youtube_downloader():
     """Render HTML form to accept YouTube URL."""
-    html_page = f"""<html><head>
-                    <Title>YouTube Downloader</Title></head>
-                    <body><h2>Enter URL to download YouTube Vids!</h2>
+    html_page = f"""<html>
+                    <head>
+                    <Title>YouTube Downloader</Title>
+                    </head>
+                    <body>
+                    <center>
+                    <h2>Enter URL to download YouTube Vids!</h2>
                     <div class="form">
                     <form action="/download_video" method="post">
                     <input type="text" name="URL">
                     <input type="submit" value="Submit">
-                    </form></div><br><br>
-                    </body></html>"""
+                    </form>
+                    </div>
+                    </center>
+                    <br>
+                    <br>
+                    </body>
+                    </html>"""
     return html_page
  
 @app.route("/download_video", methods=["GET","POST"])
@@ -44,25 +53,25 @@ def user_encode():
        return send_file(fname, as_attachment=True)
     if un == 720:
        youtube_url = message
-       sretam = YouTube(youtube_url).streams.get_by_resolution('720p')
+       sretam = YouTube(youtube_url).streams.filter(res="720p")
        download_path = sretam.download()
        fname = download_path.split("//")[-1]
        return send_file(fname, as_attachment=True)
     if un == 360:
        youtube_url = message
-       sreatm = YouTube(youtube_url).streams.get_by_resolution('360p')
+       sreatm = YouTube(youtube_url).streams.filter(res="360p")
        download_path = sreatm.download()
        fname = download_path.split("//")[-1]
        return send_file(fname, as_attachment=True)
     if un == 240:
        youtube_url = message
-       sreamt = YouTube(youtube_url).streams.get_by_resolution('240p')
+       sreamt = YouTube(youtube_url).streams.filter(res="240p")
        download_path = sreamt.download()
        fname = download_path.split("//")[-1]
        return send_file(fname, as_attachment=True)
     if un == 144:
        youtube_url = message
-       sream = YouTube(youtube_url).streams.get_by_resolution('144p')
+       sream = YouTube(youtube_url).streams.filter(res="144p")
        download_path = sream.download()
        fname = download_path.split("//")[-1]
        return send_file(fname, as_attachment=True)
