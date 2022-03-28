@@ -6,29 +6,12 @@ import sys
 
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
  
 @app.route("/")
 def youtube_downloader():
     """Render HTML form to accept YouTube URL."""
-    html_page = f"""<html>
-                    <head>
-                    <Title>YouTube Downloader</Title>
-                    </head>
-                    <body>
-                    <center>
-                    <h2>Enter URL to download YouTube Vids!</h2>
-                    <div class="form">
-                    <form action="/download_video" method="post">
-                    <input type="text" name="URL">
-                    <input type="submit" value="Submit">
-                    </form>
-                    </div>
-                    </center>
-                    <br>
-                    <br>
-                    </body>
-                    </html>"""
-    return html_page
+    return render_template('index.html')
  
 @app.route("/download_video", methods=["GET","POST"])
 def download_video():
@@ -39,7 +22,9 @@ def download_video():
         return send_file(fname, as_attachment=True)
     except:
         logging.exception("Failed download")
-        return "Video download failed!"
+        logging.exception("Failed download")
+        flash(u'Video Download Failed! ⚠️', 'error')
+        return render_template('index.html',eror = "Video Download Failed! ⚠️")
 
 @app.route('/api/', methods=['GET'])
 def user_encode():
