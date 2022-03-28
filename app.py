@@ -38,7 +38,7 @@ def user_encode():
     un = request.args.get('f')
     if un == 1080:
        youtube_url = message
-       srteam = YouTube(youtube_url).streams.get_by_resolution('1080p')
+       srteam = YouTube(youtube_url).streams.filter(res="1080p")
        download_path = srteam.download()
        fname = download_path.split("//")[-1]
        return send_file(fname, as_attachment=True)
