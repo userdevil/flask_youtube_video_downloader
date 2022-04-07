@@ -71,5 +71,9 @@ def user_encode():
     fname = download_path.split("//")[-1]
     return send_file(fname, as_attachment=True)
 
+@app.route("/API", methods=["GET","POST"])
+def download():
+    return render_template('API.html')
+
 if __name__=='__main__':
     app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))
